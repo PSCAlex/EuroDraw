@@ -43,7 +43,7 @@ namespace EuroDraw.Controllers
 
         private bool RunDraw()
         {
-            DateTime d = new DateTime(2016, 6, 6, 11, 25, 0);
+            DateTime d = new DateTime(2016, 6, 6, 10, 25, 0);
 
             if (!_repo.IsDrawn() && DateTime.Now >= d)
             {
@@ -70,6 +70,7 @@ namespace EuroDraw.Controllers
 
         public IActionResult Error()
         {
+            ViewBag.Time = DateTime.Now;
             return View();
         }
 
