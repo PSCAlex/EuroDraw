@@ -40,7 +40,7 @@ namespace EuroDraw
         {
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
 
             services.AddMvc();
 

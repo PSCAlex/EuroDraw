@@ -22,26 +22,28 @@ namespace EuroDraw.Controllers
 
         public IActionResult Draw()
         {
-            if (_repo.IsDrawn())
+            if (!_repo.IsDrawn())
             {
-                var draw = new DrawViewModel
+                var d = RunDraw();
+                if (!d)
                 {
-                    countries = _repo.GetCountryList(),
-                    people = _repo.GetPeopleList(),
-                    timeStamp = _repo.GetTimestamp()
-                };
+                    return RedirectToAction("Error");
+                }
+            }
 
-                return View(draw);
-            }
-            else
+            var draw = new DrawViewModel
             {
-                return RedirectToAction("Error");
-            }
+                countries = _repo.GetCountryList(),
+                people = _repo.GetPeopleList(),
+                timeStamp = _repo.GetTimestamp()
+            };
+
+            return View(draw);
         }
 
-        public IActionResult RunDraw()
+        private bool RunDraw()
         {
-            DateTime d = new DateTime(2016, 6, 2, 15, 43, 0);
+            DateTime d = new DateTime(2016, 6, 6, 11, 25, 0);
 
             if (!_repo.IsDrawn() && DateTime.Now >= d)
             {
@@ -59,10 +61,10 @@ namespace EuroDraw.Controllers
 
                 _repo.NewDraw(shuffledPeople, shuffledCountries);
 
-                return View();
+                return true;
             }else
             {
-                return RedirectToAction("Error");
+                return false;
             }
         }
 
