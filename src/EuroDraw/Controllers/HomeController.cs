@@ -43,6 +43,7 @@ namespace EuroDraw.Controllers
 
         private bool RunDraw()
         {
+            //azure time is an hour behind
             DateTime d = new DateTime(2016, 6, 6, 10, 25, 0);
 
             if (!_repo.IsDrawn() && DateTime.Now >= d)
