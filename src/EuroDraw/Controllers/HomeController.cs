@@ -24,8 +24,8 @@ namespace EuroDraw.Controllers
         {
             if (!_repo.IsDrawn())
             {
-                var d = RunDraw();
-                if (!d)
+                var drawRan = RunDraw();
+                if (!drawRan)
                 {
                     return RedirectToAction("Error");
                 }
@@ -44,9 +44,9 @@ namespace EuroDraw.Controllers
         private bool RunDraw()
         {
             //azure time is an hour behind
-            DateTime d = new DateTime(2016, 6, 9, 20, 30, 0);
+            DateTime drawDate = new DateTime(2016, 6, 9, 20, 30, 0);
 
-            if (!_repo.IsDrawn() && DateTime.Now >= d)
+            if (!_repo.IsDrawn() && DateTime.Now >= drawDate)
             {
                 var rnd = new Random();
                 var people = new List<int>();
