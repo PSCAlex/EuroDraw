@@ -44,7 +44,7 @@ namespace EuroDraw.Controllers
         private bool RunDraw()
         {
             //azure time is an hour behind
-            DateTime d = new DateTime(2016, 6, 6, 10, 25, 0);
+            DateTime d = new DateTime(2016, 6, 9, 20, 30, 0);
 
             if (!_repo.IsDrawn() && DateTime.Now >= d)
             {

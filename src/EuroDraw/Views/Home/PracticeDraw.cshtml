@@ -1,8 +1,15 @@
 ﻿<div class="container-fluid">
-    <div id="peopleArea" class="col-md-2 col-xs-3">
+    <div id="peopleArea1" class="col-md-2 col-xs-2">
+        <div class="col-md-12">
 
+        </div>
     </div>
-    <div class="col-md-8 col-xs-6">
+    <div id="peopleArea2" class="col-md-2 col-xs-2">
+        <div class="col-md-12">
+
+        </div>
+    </div>
+    <div class="col-md-4 col-xs-4">
         <div class="row">
             <div id="drawArea" class="col-md-12 hidden">
                 <div class="text-center"><h2 id="nextText">First Up...</h2></div>
@@ -32,9 +39,28 @@
                 <button id="DrawButton" class="btn btn-default btn-block" onclick="draw()">Draw</button>
             </div>
         </div>
+        <br />
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <button id="lazyButton" class="btn btn-default btn-block" onclick="lazyDraw()">I'm Lazy</button>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <button id="veryLazyButton" class="btn btn-default btn-block" onclick="veryLazyDraw()">I'm VERY Lazy</button>
+            </div>
+        </div>
     </div>
-    <div id="countryArea" class="col-md-2 col-xs-3">
+    <div id="countryArea1" class="col-md-2 col-xs-2">
+        <div class="col-md-12">
 
+        </div>
+    </div>
+    <div id="countryArea2" class="col-md-2 col-xs-2">
+        <div class="col-md-12">
+
+        </div>
     </div>
 </div>
 
@@ -96,20 +122,32 @@
             personButtons = [];
             countryButtons = [];
 
-            var peopleArea = $("#peopleArea");
-            peopleArea.empty();
+            var peopleArea1 = $("#peopleArea1");
+            var peopleArea2 = $("#peopleArea2");
+            peopleArea1.children().empty();
+            peopleArea2.children().empty();
             $(people).each(function (index) {
                 b = $("<div class='row'><button class='btn btn-success btn-block preBlock' value='" + index + "'>" + peopleNames[index] + "</button></div>");
                 personButtons.push(b);
-                peopleArea.append(b);
+                if (index >= 12) {
+                    peopleArea2.children().append(b);
+                } else {
+                    peopleArea1.children().append(b);
+                }
             });
 
-            var countryArea = $("#countryArea");
-            countryArea.empty();
+            var countryArea1 = $("#countryArea1");
+            var countryArea2 = $("#countryArea2");
+            countryArea1.children().empty();
+            countryArea2.children().empty();
             $(countries).each(function (index) {
                 b = $("<div class='row'><button class='btn btn-danger btn-block preBlock' value='" + index + "'>" + countryNames[index] + "</button></div>");
-                countryArea.append(b);
                 countryButtons.push(b);
+                if (index >= 12) {
+                    countryArea2.children().append(b);
+                } else {
+                    countryArea1.children().append(b);
+                }
             });
 
         };
@@ -143,13 +181,47 @@
             init();
             clearCompletedArea();
             $("#DrawButton").hide();
+            $("#lazyButton").hide();
+            $("#veryLazyButton").hide();
             var delay = 1000;
             for (var i = 0; i < 24; i++) {
                 var obj = {};
                 drawPerson(obj, delay, i);
-                drawCountry(obj, delay, i);
-                completeDraw(obj, delay,i);
+                drawCountry(obj, delay, 2000, i);
+                completeDraw(obj, delay, 4000, i);
                 delay += 8000;
+            }
+        }
+
+        var lazyDraw = function () {
+            init();
+            clearCompletedArea();
+            $("#DrawButton").hide();
+            $("#lazyButton").hide();
+            $("#veryLazyButton").hide();
+            var delay = 100;
+            for (var i = 0; i < 24; i++) {
+                var obj = {};
+                drawPerson(obj, delay, i);
+                drawCountry(obj, delay, 200, i);
+                completeDraw(obj, delay, 400, i);
+                delay += 800;
+            }
+        }
+
+        var veryLazyDraw = function () {
+            init();
+            clearCompletedArea();
+            $("#DrawButton").hide();
+            $("#lazyButton").hide();
+            $("#veryLazyButton").hide();
+            var delay = 0;
+            for (var i = 0; i < 24; i++) {
+                var obj = {};
+                drawPerson(obj, delay, i);
+                drawCountry(obj, delay, 0, i);
+                completeDraw(obj, delay, 0, i);
+                delay += 0;
             }
         }
 
@@ -160,14 +232,14 @@
             }, delay);
         }
 
-        var drawCountry = function (obj, delay, i) {
+        var drawCountry = function (obj, delay,x, i) {
             setTimeout(function () {
                 obj['country'] = getRandCountry();
                 setDrawnCountry(obj['country']);
-            }, delay + 2000);
+            }, delay + x);
         }
 
-        var completeDraw = function (obj, delay,i) {
+        var completeDraw = function (obj, delay,x,i) {
             setTimeout(function () {
                 addToCompletedArea(obj['person'], obj['country']);
                 drawArr.push(obj);
@@ -178,7 +250,7 @@
                 if (i == 22) {
                     $("#nextText").text("Last out...");
                 }
-            }, delay + 4000);
+            }, delay + x);
         }
 
         var clearCompletedArea = function () {
