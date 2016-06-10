@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using EuroDraw.Models;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace EuroDraw.Controllers
 {
@@ -43,6 +44,7 @@ namespace EuroDraw.Controllers
 
         private bool RunDraw()
         {
+            /*
             //azure time is an hour behind
             DateTime drawDate = new DateTime(2016, 6, 9, 20, 30, 0);
 
@@ -63,10 +65,12 @@ namespace EuroDraw.Controllers
                 _repo.NewDraw(shuffledPeople, shuffledCountries);
 
                 return true;
-            }else
+            }
+            else
             {
                 return false;
-            }
+            }*/
+            return true;
         }
 
         public IActionResult Error()

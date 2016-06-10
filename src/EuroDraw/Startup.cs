@@ -39,9 +39,11 @@ namespace EuroDraw
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            /*
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
 
+            */
             services.AddMvc();
 
             services.AddScoped<IDrawRepo, DrawRepo>();
