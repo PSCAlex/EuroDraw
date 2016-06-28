@@ -44,6 +44,8 @@ namespace EuroDraw
             */
             services.AddMvc();
 
+            services.AddKendo();
+
             services.AddScoped<IDrawRepo, DrawRepo>();
         }
 
@@ -69,6 +71,8 @@ namespace EuroDraw
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.UseKendo(env);
         }
     }
 }

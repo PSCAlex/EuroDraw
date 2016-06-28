@@ -42,7 +42,7 @@ namespace EuroDraw.Controllers
             return View(draw);
         }
 
-        private bool RunDraw()
+        public bool RunDraw()
         {
             /*
             //azure time is an hour behind
