@@ -1,0 +1,288 @@
+﻿<div class="container-fluid">
+    <div id="peopleArea1" class="col-md-2 col-xs-2">
+        <div class="col-md-12">
+
+        </div>
+    </div>
+    <div id="peopleArea2" class="col-md-2 col-xs-2">
+        <div class="col-md-12">
+
+        </div>
+    </div>
+    <div class="col-md-4 col-xs-4">
+        <div class="row">
+            <div id="drawArea" class="col-md-12 hidden">
+                <div class="text-center"><h2 id="nextText">First Up...</h2></div>
+                <div class="col-md-5">
+                    <div id="drawnPerson" class="well">
+                        ...
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <h3>Gets</h3>
+                </div>
+                <div class="col-md-5">
+                    <div id="drawnCountry" class="well">
+                        ...
+                    </div>
+                </div>
+            </div>
+            <div id="GetStarted" class="col-md-12">
+                <h1 class="text-center">Press Draw to get started!</h1>
+            </div>
+            <div id="completedArea" class="col-md-12">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <button id="DrawButton" class="btn btn-default btn-block" onclick="draw()">Draw</button>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <button id="lazyButton" class="btn btn-default btn-block" onclick="lazyDraw()">I'm Lazy</button>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <button id="veryLazyButton" class="btn btn-default btn-block" onclick="veryLazyDraw()">I'm VERY Lazy</button>
+            </div>
+        </div>
+    </div>
+    <div id="countryArea1" class="col-md-2 col-xs-2">
+        <div class="col-md-12">
+
+        </div>
+    </div>
+    <div id="countryArea2" class="col-md-2 col-xs-2">
+        <div class="col-md-12">
+
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+        var peopleNames = [
+            "Kim Herrera",
+            "Austin Marshall",
+            "Salvatore Garza",
+            "Clint Bradley",
+            "Carol Schwartz",
+            "Della Spencer",
+            "Ricardo Munoz",
+            "Roberta Moody",
+            "Everett Mcdaniel",
+            "Maria Fernandez",
+            "Danny Vargas",
+            "Mable Henderson",
+            "Lauren Nash",
+            "Naomi Jackson",
+            "Geneva Wood",
+            "Valerie Hawkins",
+            "Sadie Woods",
+            "Sue Bishop",
+            "Adam Love",
+            "Bessie Dean",
+            "Brad Cruz",
+            "Stephen Silva",
+            "Sheila Jimenez",
+            "Kimberly Pearson"
+        ];
+        var countryNames = ["Albania", "Austria", "Belgium", "Croatia", "Czech Republic", "England", "France", "Germany", "Hungary", "Iceland", "Italy", "Northern Ireland", "Poland", "Portugal", "Republic of Ireland", "Romania", "Russia", "Slovakia", "Spain", "Sweden", "Switzerland", "Turkey", "Ukraine", "Wales"];
+
+
+        var people = [];
+        var countries = [];
+        var randPerson = [];
+        var randCountry = [];
+        var drawArr = [];
+        var personButtons = [];
+        var countryButtons = [];
+
+        //
+        console.log("hello");
+
+        var init = function () {
+
+            $("#GetStarted").hide();
+            $("#drawArea").removeClass("hidden");
+
+            people = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+            countries = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+            randPerson = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+            randPerson = shuffle(randPerson);
+            randCountry = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+            randCountry = shuffle(randCountry);
+            drawArr = [];
+            personButtons = [];
+            countryButtons = [];
+
+            var peopleArea1 = $("#peopleArea1");
+            var peopleArea2 = $("#peopleArea2");
+            peopleArea1.children().empty();
+            peopleArea2.children().empty();
+            $(people).each(function (index) {
+                b = $("<div class='row'><button class='btn btn-success btn-block preBlock' value='" + index + "'>" + peopleNames[index] + "</button></div>");
+                personButtons.push(b);
+                if (index >= 12) {
+                    peopleArea2.children().append(b);
+                } else {
+                    peopleArea1.children().append(b);
+                }
+            });
+
+            var countryArea1 = $("#countryArea1");
+            var countryArea2 = $("#countryArea2");
+            countryArea1.children().empty();
+            countryArea2.children().empty();
+            $(countries).each(function (index) {
+                b = $("<div class='row'><button class='btn btn-danger btn-block preBlock' value='" + index + "'>" + countryNames[index] + "</button></div>");
+                countryButtons.push(b);
+                if (index >= 12) {
+                    countryArea2.children().append(b);
+                } else {
+                    countryArea1.children().append(b);
+                }
+            });
+
+        };
+
+        var shuffle = function (a) {
+            var j, x, i;
+            for (i = a.length; i; i -= 1) {
+                j = Math.floor(Math.random() * i);
+                x = a[i - 1];
+                a[i - 1] = a[j];
+                a[j] = x;
+            }
+            return a;
+        }
+
+        var getRandPerson = function () {
+            var shuffledArray = shuffle(randPerson);
+            var i = shuffledArray.pop();
+            randPerson = shuffledArray;
+            return i;
+        }
+
+        var getRandCountry = function () {
+            var shuffledArray = shuffle(randCountry);
+            var i = shuffledArray.pop();
+            randCountry = shuffledArray;
+            return i;
+        }
+
+        var draw = function () {
+            init();
+            clearCompletedArea();
+            $("#DrawButton").hide();
+            $("#lazyButton").hide();
+            $("#veryLazyButton").hide();
+            var delay = 1000;
+            for (var i = 0; i < 24; i++) {
+                var obj = {};
+                drawPerson(obj, delay, i);
+                drawCountry(obj, delay, 2000, i);
+                completeDraw(obj, delay, 4000, i);
+                delay += 8000;
+            }
+        }
+
+        var lazyDraw = function () {
+            init();
+            clearCompletedArea();
+            $("#DrawButton").hide();
+            $("#lazyButton").hide();
+            $("#veryLazyButton").hide();
+            var delay = 100;
+            for (var i = 0; i < 24; i++) {
+                var obj = {};
+                drawPerson(obj, delay, i);
+                drawCountry(obj, delay, 200, i);
+                completeDraw(obj, delay, 400, i);
+                delay += 800;
+            }
+        }
+
+        var veryLazyDraw = function () {
+            init();
+            clearCompletedArea();
+            $("#DrawButton").hide();
+            $("#lazyButton").hide();
+            $("#veryLazyButton").hide();
+            var delay = 0;
+            for (var i = 0; i < 24; i++) {
+                var obj = {};
+                drawPerson(obj, delay, i);
+                drawCountry(obj, delay, 0, i);
+                completeDraw(obj, delay, 0, i);
+                delay += 0;
+            }
+        }
+
+        var drawPerson = function (obj, delay, i) {
+            setTimeout(function () {
+                obj['person'] = getRandPerson();
+                setDrawnPerson(obj['person']);
+            }, delay);
+        }
+
+        var drawCountry = function (obj, delay,x, i) {
+            setTimeout(function () {
+                obj['country'] = getRandCountry();
+                setDrawnCountry(obj['country']);
+            }, delay + x);
+        }
+
+        var completeDraw = function (obj, delay,x,i) {
+            setTimeout(function () {
+                addToCompletedArea(obj['person'], obj['country']);
+                drawArr.push(obj);
+                console.log(i);
+                if (i == 0) {
+                    $("#nextText").text("Next up...");
+                }
+                if (i == 22) {
+                    $("#nextText").text("Last out...");
+                }
+            }, delay + x);
+        }
+
+        var clearCompletedArea = function () {
+            $("#completedArea").empty();
+        }
+
+        var addToCompletedArea = function (person, country) {
+            $("#completedArea").append("<div class='row'><div class='col-md-6'><button class='btn btn-success btn-block preBlock'>" + peopleNames[person - 1] + "</button></div><div class='col-md-6'><button class='btn btn-danger btn-block preBlock'>" + countryNames[country - 1] + "</button></div></div>");
+            $("#drawnPerson").text("...");
+            $("#drawnCountry").text("...");
+        }
+
+        var setDrawnPerson = function (person) {
+            $("#drawnPerson").text(peopleNames[person - 1]);
+            $(personButtons[person - 1]).children().removeClass("btn-success").addClass("btn-default");
+        }
+
+        var clearDrawnPerson = function () {
+            $("#drawnPerson").empty();
+        }
+
+        var setDrawnCountry = function (country) {
+            $("#drawnCountry").text(countryNames[country - 1]);
+            $(countryButtons[country - 1]).children().removeClass("btn-danger").addClass("btn-default");
+        }
+
+        var clearDrawnCountry = function () {
+            $("#drawnCountry").empty();
+        }
+
+        $(document).ready(function () {
+        });
+    </script>
+}
+

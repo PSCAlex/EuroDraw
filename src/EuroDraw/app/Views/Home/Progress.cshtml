@@ -1,0 +1,155 @@
+﻿@{ 
+    ViewData["Title"] = "Progress";
+}
+
+<div class="container-fluid">
+    <h1>Check your progress</h1>
+
+    <div>
+
+    </div>
+
+    <div id="groupArea">
+ 
+    </div>
+   
+</div>
+
+@*<div>
+    <div class="col-md-4 group">
+        <h2 class="text-center">Group A</h2>
+        <div class="col-md-12">
+            <div class="row">
+                <button class="btn btn-success btn-block">Team</button>
+            </div>
+            <br />
+            <div class="row">
+                <button class="btn btn-success btn-block">Team</button>
+            </div>
+            <br />
+            <div class="row">
+                <button class="btn btn-success btn-block">Team</button>
+            </div>
+            <br />
+            <div class="row">
+                <button class="btn btn-success btn-block">Team</button>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+@section scripts{
+    <script>
+
+        var peopleNames = [
+            "Alex Logan",
+
+            "Hattie Avis",
+
+            "Martin Lively",
+
+            "Liam Mills",
+
+            "Jordan Swann",
+
+            "Otis Moorman",
+
+            "Michael Turner",
+
+            "Kris Johnson",
+
+            "Henry B",
+
+            "Jack Kiff",
+
+            "Connor Browne",
+
+            "Jack Andrews",
+
+            "Scott Grant",
+
+            "Angus Logan",
+
+            "George Mabey",
+
+            "Peter L",
+
+            "Luke Sapiets",
+
+            "Rory Marast",
+
+            "Alban",
+
+            "Owen Dodd",
+
+            "Alex Breeze",
+
+            "Adrian Fitch",
+
+            "Jonothon Westwood", "Dan Edwards"
+
+        ];
+        var countryNames = ["Albania", "Austria", "Belgium", "Croatia", "Czech Republic", "England", "France",
+            "Germany", "Hungary", "Iceland", "Italy", "Northern Ireland", "Poland", "Portugal", "Republic of Ireland", "Romania", "Russia", "Slovakia",
+            "Spain", "Sweden", "Switzerland", "Turkey", "Ukraine", "Wales"];
+
+        var groups = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+        var unorderedList = [
+            {person: 6,country: 3, group: 5, inOut: 'btn-success'},
+            { person: 18, country: 15, group: 5, inOut: 'btn-success' },
+            { person: 3, country: 11, group: 5, inOut: 'btn-success' },
+            { person: 11, country: 23, group: 3, inOut: 'btn-danger' },
+            { person: 7, country: 7, group: 1, inOut: 'btn-success' },
+            { person: 23, country: 13, group: 3, inOut: 'btn-success' },
+            { person: 5, country: 14, group: 6, inOut: 'btn-success' },
+            { person: 24, country: 20, group: 5, inOut: 'btn-success' },
+            { person: 1, country: 19, group: 4, inOut: 'btn-success' },
+            { person: 9, country: 5, group: 4, inOut: 'btn-danger' },
+            { person: 2, country: 8, group: 3, inOut: 'btn-success' },
+            { person: 12, country: 17, group: 2, inOut: 'btn-danger' },
+            { person: 4, country: 6, group: 2, inOut: 'btn-success' },
+            { person: 13, country: 12, group: 3, inOut: 'btn-success' },
+            { person: 15, country: 1, group: 1, inOut: 'btn-success' },
+            { person: 19, country: 18, group: 2, inOut: 'btn-success' },
+            { person: 10, country: 24, group: 2, inOut: 'btn-success' },
+            { person: 21, country: 16, group: 1, inOut: 'btn-danger' },
+            { person: 16, country: 21, group: 1, inOut: 'btn-success' },
+            { person: 17, country: 9, group: 6, inOut: 'btn-success' },
+            { person: 22, country: 22, group: 4, inOut: 'btn-success' },
+            { person: 20, country: 2, group: 6, inOut: 'btn-success' },
+            { person: 14, country: 4, group: 4, inOut: 'btn-success' },
+            { person: 8, country: 10, group: 6, inOut: 'btn-success' }
+        ];
+
+        var orderedList = [];
+
+        for (var i = 1; i < 7; i++) {
+            for (var j = 0; j < 24; j++) {
+                if (unorderedList[j].group == i) {
+                    orderedList.push(unorderedList[j]);
+                };
+            };
+        };
+
+        var count = 0;
+
+        $(groups).each(function (i, e) {
+
+            i += count;
+
+            var b = $('<div class="col-md-4 group"> <h2 class="text-center">' + 'Group ' + e + '</h2><div class="col-md-12"><div class="row"><button class="btn btn-block ' + orderedList[i].inOut + '">' + peopleNames[orderedList[i].person - 1] + ' - ' + countryNames[orderedList[i].country - 1] +
+                    '</button></div><br /><div class="row"><button class="btn btn-block ' + orderedList[i + 1].inOut + '">' + peopleNames[orderedList[i + 1].person - 1] + ' - ' + countryNames[orderedList[i + 1].country - 1] +
+                        '</button></div><br /><div class="row"><button class="btn btn-block ' + orderedList[i + 2].inOut + '">' + peopleNames[orderedList[i + 2].person - 1] + ' - ' + countryNames[orderedList[i + 2].country - 1] +
+                            '</button></div><br /><div class="row"><button class="btn btn-block ' + orderedList[i + 3].inOut + '">' + peopleNames[orderedList[i + 3].person - 1] + ' - ' + countryNames[orderedList[i + 3].country - 1] + '</button></div></div></div>');
+
+            console.log(b);
+
+            $("#groupArea").append(b);
+
+            count += 3;
+        });
+
+
+    </script>
+}
