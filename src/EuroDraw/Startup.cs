@@ -44,8 +44,6 @@ namespace EuroDraw
             */
             services.AddMvc();
 
-            services.AddKendo();
-
             services.AddScoped<IDrawRepo, DrawRepo>();
         }
 
