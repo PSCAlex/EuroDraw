@@ -1,6 +1,6 @@
 ﻿test:
   override:
-    - dotnet build
+    - dotnet test ./EuroDraw.Tests/
 
 deployment:
     dockerhub:
