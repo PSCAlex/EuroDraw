@@ -1,4 +1,8 @@
-﻿deployment:
+﻿test:
+  override:
+    - dotnet build
+
+deployment:
     dockerhub:
         branch: master 
         commands:
